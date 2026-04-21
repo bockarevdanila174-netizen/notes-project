@@ -1,0 +1,93 @@
+*,*::before, *::after{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+img,picture,video,canvas,svg{
+    display: block;
+    max-width: 100%;
+}
+input,button,textarea,select{
+    font: inherit;
+}
+body{
+    font-family: "Montserrat", sans-serif;
+    background-color:beige;
+}
+.container{
+    max-width: 1300px;
+    padding: 0 65px;
+}
+.header-wrapper{
+    display: flex;
+    justify-content: space-between;
+}
+.count{
+    display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.note-form{
+    display: flex;
+    flex-direction: column;
+}
+fieldset {
+  all: unset;
+}
+ 
+legend {
+  all: unset
+}
+ 
+.radio-list {
+  display: flex;
+  gap: 14px;
+  list-style: none;
+  padding-left: 0;
+}
+ 
+ 
+.radio {
+  appearance: none;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: green;
+}
+ 
+.radio[value="red"] {
+  background-color: #F37D7D;
+}
+ 
+.radio[value="green"] {
+  background-color: #C2F37D;
+}
+ 
+.radio[value="blue"] {
+  background-color: #7DE1F3;
+}
+ 
+.radio[value="yellow"] {
+  background-color: #F3DB7D;
+}
+ 
+.radio[value="purple"] {
+  background-color: #E77DF3;
+}
+ 
+.radio:checked {
+  border-color: white;
+  box-shadow: 0 0 0 3px white, /* Внутренняя обводка для создания промежутка */
+  0 0 0 4.5px #007BFF; /* Внешняя обводка */
+}
+.filter-box{
+    display: flex;
+    justify-content: end;
+    flex-direction: row-reverse;
+}
+.notes-list{
+    display: flex;
+    gap: 24px;
+    list-style: none;
+}
