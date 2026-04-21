@@ -124,9 +124,9 @@ const list = this.list;
     <h3 class="note-title">${note.title}</h3>
     <div class="note-actions">
     <button class="btn-favorite" id="${note.id}">
-    <img src="../images/main-icon/icon/${note.isFavorite ? "no-favorite.svg" : "favorite.svg"}"/>    </button>
+    <img src="./images/icon/${note.isFavorite ? "no-favorite.svg" : "favorite.svg"}"/>    </button>
     <button class="btn-delete" id="${note.id}">
-    <img src="/project/images/main-icon/icon/delete.svg"/>
+    <img src="./images/icon/delete.svg"/>
     </button>
 
     </div>
