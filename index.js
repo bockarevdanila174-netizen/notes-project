@@ -108,7 +108,8 @@ const view = {
   },
   renderCount(count) {
     const countEl = document.querySelector("#count");
-    countEl.textContent = `Всего заметок: ${count}`;
+    countEl.innerHTML = `Всего заметок: <span class="count-number">${count}</span>`;
+    // countEl.textContent = `Всего заметок: ${count}`;
   },
  
 
