@@ -14,114 +14,117 @@
   </head>
   <body>
     <header class="header">
-      
-        <div class="header-wrapper">
-          <a href="" class="logo">
-            <img
-              class="logo-img"
-              src="./images/icon/📝logo-note.svg"
-              alt=""
-            />
-          </a>
-          <div class="count">
-            <img src="./images/icon/count-notes.svg" />
-            <span id="count"></span>
-          </div>
+      <div class="container">
+      <div class="header-wrapper">
+        <a href="" class="logo">
+          <img class="logo-img" src="./images/icon/📝logo-note.svg" alt="Логотип заметок" />
+        </a>
+        <div class="count">
+          <img src="./images/icon/count-notes.svg" />
+          <span id="count"></span>
         </div>
-      
+      </div>
+      </div>
     </header>
     <main class="main">
       <div class="container">
         <form class="note-form">
-          <label for="title"></label>
-          Название заметки
-          <input
-            type="text"
-            placeholder="Напишите название новой заметки..."
-            name="title"
-            id="title"
-          />
+          <div class="info-wrapper">
+            <label for="title">Название заметки</label>
+            
+            <input
+              type="text"
+              placeholder="Напишите название новой заметки..."
+              name="title"
+              id="title"
+            />
 
-          <label for="content">Описание новой заметки</label>
-          <textarea
-            name="content"
-            id="content"
-            placeholder="Напишите описание новой заметки..."
-          ></textarea>
+            <label for="content">Описание новой заметки</label>
+            <textarea
+              name="content"
+              id="content"
+              placeholder="Напишите описание новой заметки..."
+            ></textarea>
+          </div>
+          <div class="wrapper-color">
+            <fieldset class="fieldset">
+              <legend class="label">Выберите цвет заметки</legend>
+              <ul class="radio-list">
+                <li>
+                  <input
+                    
+                    class="radio"
+                    type="radio"
+                    name="color"
+                    value="yellow"
+                    aria-label="yellow"
+                  />
+                </li>
+                <li>
+                  <input
+                    class="radio"
+                    type="radio"
+                    name="color"
+                    value="red"
+                    aria-label="red"
+                  />
+                </li>
+                <li>
+                  <input
+                    class="radio"
+                    type="radio"
+                    name="color"
+                    value="green"
+                    aria-label="green"
+                  />
+                </li>
+                <li>
+                  <input
+                    class="radio"
+                    type="radio"
+                    name="color"
+                    value="blue"
+                    aria-label="blue"
+                  />
+                </li>
+                <li>
+                  <input
+                    class="radio"
+                    type="radio"
+                    name="color"
+                    value="purple"
+                    aria-label="purple"
+                  />
+                </li>
+              </ul>
+            </fieldset>
 
-          <fieldset class="fieldset">
-            <legend class="label">Выберите цвет заметки</legend>
-            <ul class="radio-list">
-              <li>
-                <input
-                  checked
-                  class="radio"
-                  type="radio"
-                  name="color"
-                  value="yellow"
-                  aria-label="yellow"
-                />
-              </li>
-              <li>
-                <input
-                  class="radio"
-                  type="radio"
-                  name="color"
-                  value="red"
-                  aria-label="red"
-                />
-              </li>
-              <li>
-                <input
-                  class="radio"
-                  type="radio"
-                  name="color"
-                  value="green"
-                  aria-label="green"
-                />
-              </li>
-              <li>
-                <input
-                  class="radio"
-                  type="radio"
-                  name="color"
-                  value="blue"
-                  aria-label="blue"
-                />
-              </li>
-              <li>
-                <input
-                  class="radio"
-                  type="radio"
-                  name="color"
-                  value="purple"
-                  aria-label="purple"
-                />
-              </li>
-            </ul>
-          </fieldset>
-          <input type="submit" name="submit" value="+ Добавить заметку" />
+            <input type="submit" class="submit" name="submit" value="+ Добавить заметку" />
+          </div>
           <!-- your code -->
         </form>
       </div>
-    </main>
-    <div class="filter-box">
-      <label for="checked">Показать только избранные заметки</label>
+    
+    <div class="container">
+      <div class="filter-box">
+        <label for="checked">Показать только избранные заметки</label>
 
-      <input id="checked" type="checkbox" />
-      <!-- Ваш код -->
+        <input id="checked" type="checkbox" />
+        <!-- Ваш код -->
+      </div>
     </div>
-    <article>
+    <section class="notes">
       <div class="container">
         <ul class="notes-list">
           <!-- Сюда будут рендерится заметки из JavaScript -->
         </ul>
       </div>
-    </article>
-
-    <div class="message-box">
-      <!-- Сюда будут рендерится информационные сообщения из JavaScript -->
-    </div>
+    </section>
+    
+      <div class="message-box">
+        <!-- Сюда будут рендерится информационные сообщения из JavaScript -->
+      </div>
+    </main>
 
     <!-- your code -->
 

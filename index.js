@@ -19,11 +19,13 @@ const model = {
   notes: [],
   isShowOnlyFavorite: false,
   render() {
-    const filteredNotes = this.getFavoriteNotes();
-    view.renderNotes(filteredNotes);
+    const notes = this.getFavoriteNotes();
+    view.renderNotes(notes);
     view.renderCount(this.getCountNotes());
-  },
+    view.renderFilterBox(); 
 
+    
+  },
 
   createNote(title, content, color) {
     const note = {
@@ -43,20 +45,15 @@ const model = {
   },
 
   toggleFavorite(id) {
-
-    
     const note = this.notes.find((n) => n.id === id);
     if (note) {
-  
-        note.isFavorite = !note.isFavorite;
-        this.render();
-}
-
-   
+      note.isFavorite = !note.isFavorite;
+      this.render();
+    }
   },
 
-  toggleShowOnlyFavorite() {
-    this.isShowOnlyFavorite = !this.isShowOnlyFavorite;
+  toggleShowOnlyFavorite(value) {
+    this.isShowOnlyFavorite = value;
     this.render();
   },
   getFavoriteNotes() {
@@ -67,7 +64,13 @@ const model = {
   getCountNotes() {
     return this.getFavoriteNotes().length;
   },
-  
+//   toggleFilter(value) {
+//   this.isShowOnlyFavorite = value;
+//   this.render();
+// }
+hasFavoriteNotes() {
+  return this.notes.some(n => n.isFavorite);
+}
 };
 
 const view = {
@@ -102,8 +105,8 @@ const view = {
       }
     });
 
-    isFavorite.addEventListener("change", () => {
-      controller.toggleFilter();
+    isFavorite.addEventListener("change", (e) => {
+      controller.toggleFilter(e.target.checked);
     });
   },
   renderCount(count) {
@@ -111,12 +114,23 @@ const view = {
     countEl.innerHTML = `Всего заметок: <span class="count-number">${count}</span>`;
     // countEl.textContent = `Всего заметок: ${count}`;
   },
- 
-
+  renderFilterBox() {
+  const box = document.querySelector(".filter-box");
+  box.style.display = model.notes.length ? "flex" : "none";
+},
   renderNotes(notes) {
-const list = this.list;    
+    const list = this.list;
 
     list.innerHTML = "";
+    if (notes.length === 0) {
+    list.innerHTML = `
+      <li class="empty-state">
+       У вас нет еще ни одной заметки <br>
+Заполните поля выше и создайте свою первую заметку!
+      </li>
+    `;
+    return;
+  }
 
     notes.forEach((note) => {
       list.innerHTML += `
@@ -125,7 +139,8 @@ const list = this.list;
     <h3 class="note-title">${note.title}</h3>
     <div class="note-actions">
     <button class="btn-favorite" id="${note.id}">
-    <img src="./images/icon/${note.isFavorite ? "no-favorite.svg" : "favorite.svg"}"/>    </button>
+    <img src="./images/icon/${note.isFavorite ? "no-favorite.svg" : "favorite.svg"}"/>
+    </button>
     <button class="btn-delete" id="${note.id}">
     <img src="./images/icon/delete.svg"/>
     </button>
@@ -137,46 +152,63 @@ const list = this.list;
     `;
     });
   },
+  // showMessage(message, error = false) {
+  //   const box = this.box;
+  //   box.innerHTML = "";
+
+  //   const messageElement = document.createElement("span");
+
+  //   box.classList.remove("message-error", "message-done");
+
+  //   if (error) {
+  //     messageElement.classList.add("message-error");
+  //   } else {
+  //     messageElement.classList.add("message-done");
+  //   }
+
+  //   messageElement.textContent = message;
+  //   box.append(messageElement);
+
+  //   setTimeout(() => {
+  //     messageElement.remove();
+  //   }, 1500);
+  // },
   showMessage(message, error = false) {
-    const box = this.box;
-    box.innerHTML = "";
+  const box = this.box;
+  box.innerHTML = "";
 
+  const messageElement = document.createElement("div");
 
-    const messageElement = document.createElement("span");
+  messageElement.classList.add(
+    error ? "message-error" : "message-done"
+  );
 
-    box.classList.remove("message-error", "message-done");
+  messageElement.innerHTML = `
+    <img src="./images/icon/${error ? "warning.svg" : "done.svg"}" class="message-icon">
+    <span>${message}</span>
+  `;
 
-    if (error) {
-      messageElement.classList.add("message-error");
-    } else {
-      messageElement.classList.add("message-done");
-    }
+  box.append(messageElement);
 
-    messageElement.textContent = message;
-    box.append(messageElement);
-
-    setTimeout(() => {
-      messageElement.remove();
-    }, 1500);
-  }
-
-  
+  setTimeout(() => {
+    messageElement.remove();
+  }, 1500);
+}
 };
 const controller = {
   createNote(title, content, color) {
-   if (title.length === 0) {
-    view.showMessage("Введите заголовок", true);
-    return;
-  }
+    if (title.length === 0) {
+      view.showMessage("Введите заголовок", true);
+      return;
+    }
 
-  if (title.length > 50) {
-    view.showMessage("Максимальная длина заголовка - 50 символов", true);
-    return;
-  }
+    if (title.length > 50) {
+      view.showMessage("Максимальная длина заголовка - 50 символов", true);
+      return;
+    }
 
-  model.createNote(title, content, color);
-  view.showMessage("Заметка добавлена!");
-    
+    model.createNote(title, content, color);
+    view.showMessage("Заметка добавлена!");
   },
   deleteNote(id) {
     model.deleteNote(id);
@@ -185,9 +217,10 @@ const controller = {
     model.toggleFavorite(id);
   },
 
-  toggleFilter() {
-    model.toggleShowOnlyFavorite();
+  toggleFilter(value) {
+    model.toggleShowOnlyFavorite(value);
   },
+  
 };
 
 function init() {
