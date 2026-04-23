@@ -39,6 +39,14 @@ body {
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+#count {
+ 
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: right;
+}
 .count {
   display: flex;
   align-items: center;
@@ -69,7 +77,6 @@ body {
   border-radius: 10px;
   padding-left: 12px;
   border: 1px solid rgba(232, 232, 232, 1);
-  /* color: rgba(145, 145, 145, 1); */
   margin-bottom: 12px;
 }
 #title::placeholder,
@@ -93,8 +100,8 @@ letter-spacing: 0%;
   border: 1px solid rgba(232, 232, 232, 1);
   
 }
-input:focus,
-textarea:focus {
+ .note-form input:focus,
+.note-form textarea:focus {
   outline: none;
   border: 1px solid #457cdc;
   box-shadow: 0 0 0 2px rgba(69, 124, 220, 0.2);
@@ -112,7 +119,6 @@ label {
   display: flex;
   gap: 12px;
   justify-content: end;
-  /* align-items: end; */
   flex-direction: column;
 }
 .note-form {
@@ -131,18 +137,22 @@ label {
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-.submit {
+ .submit {
   width: 232px;
   height: 36px;
   border-radius: 10px;
   border: none;
+
   background-color: rgba(69, 124, 220, 1);
-  font-family: Montserrat;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0%;
-  color: rgba(255, 255, 255, 1);
+
+  background-image: url("./images/icon/plus.svg");
+  background-repeat: no-repeat;
+  text-align: end;
+  background-position: 24px center;
+  background-size: 24px;
+  padding-right: 24px; 
+  color: #fff;
+  cursor: pointer;
 }
 .label {
   font-family: Montserrat;
@@ -152,9 +162,6 @@ label {
   letter-spacing: 0%;
   color: rgba(145, 145, 145, 1);
 }
-/* .note-item{
-  margin: 0;
-} */
 fieldset {
   all: unset;
 }
@@ -230,19 +237,27 @@ label[for="checked"] {
    color: rgba(0, 0, 0, 1);
 }
 
-#count {
- 
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0%;
-  text-align: right;
-}
+
 
 .filter-box {
   display: flex;
   justify-content: end;
   flex-direction: row-reverse;
+}
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.checkbox-icon {
+  width: 20px;
+  height: 20px;
+
+  background: url("./images/icon/checkbox\ inactive.svg") center / contain no-repeat;
+}
+#checked:checked + .custom-checkbox .checkbox-icon {
+  background: url("./images/icon/checkbox\ active.svg") center / contain no-repeat;
 }
 .notes-list {
   flex-wrap: wrap;
@@ -261,8 +276,8 @@ label[for="checked"] {
 
 }
 .note-title{
-  flex: 1;              /* занимает доступное место */
-  min-width: 0;         /* ВАЖНО — разрешает сжатие */
+  flex: 1;              
+  min-width: 0;         
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;  
@@ -276,7 +291,7 @@ color: rgba(61, 77, 39, 1);
 }
 .note-content{
   
-  word-break: break-word;   /* перенос длинных слов */
+  word-break: break-word;   
   overflow-wrap: break-word;
   padding: 12px;
   font-family: Montserrat;
@@ -333,45 +348,52 @@ color: rgba(0, 0, 0, 1);
   z-index: 1000;
 }
 .message-done {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 230px;
-  height: 48px;
-  border-radius: 10px;
-  font-family: Montserrat;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 24px;
-  letter-spacing: 0%;
-  color: rgba(255, 255, 255, 1);
-  box-shadow: rgba(11, 12, 13, 0.04);
+  
   background-color: rgba(71, 178, 125, 1);
-  /* background: url(./images/icon/done.svg)center / contain no-repeat;; */
 }
 .message-error {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 427px;
-  height: 48px;
-  border-radius: 10px;
-  font-family: Montserrat;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 24px;
-  letter-spacing: 0%;
-  color: rgba(255, 255, 255, 1);
-  box-shadow: rgba(11, 12, 13, 0.04);
   background-color: rgba(242, 61, 91, 1);
 }
 .message-done,
 .message-error{
   display: flex;
-  align-items: center;
-  justify-content: start;
-  padding-left: 24px;
+  max-width: 427px;   
+  padding: 12px 24px;
   gap: 10px;
+  border-radius: 10px;
+  font-family: Montserrat;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  color: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 
 
+}
+@media screen and (max-width: 1180px){
+  .container{
+    padding: 0 20px;
+  }
+  
+}
+@media screen and (max-width: 576px){
+.note-form{
+  padding: 15px;
+}
+#title{
+  min-width: 275px;
+}
+
+#content {
+  min-width: 275px;
+  
+}
+.empty-state{
+  font-size: 14px;
+  padding: 10px;
+}
+.notes-list{
+  justify-content: center;
+}
 }

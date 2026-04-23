@@ -99,20 +99,24 @@
               </ul>
             </fieldset>
 
-            <input type="submit" class="submit" name="submit" value="+ Добавить заметку" />
+            <input type="submit" class="submit" name="submit" value=" Добавить заметку" />
           </div>
           <!-- your code -->
         </form>
       </div>
     
     <div class="container">
-      <div class="filter-box">
-        <label for="checked">Показать только избранные заметки</label>
+  <div class="filter-box">
 
-        <input id="checked" type="checkbox" />
-        <!-- Ваш код -->
-      </div>
-    </div>
+    <input id="checked" type="checkbox" hidden />
+
+    <label for="checked" class="custom-checkbox">
+      <span class="checkbox-icon"></span>
+      Показать только избранные заметки
+    </label>
+
+  </div>
+</div>
     <section class="notes">
       <div class="container">
         <ul class="notes-list">

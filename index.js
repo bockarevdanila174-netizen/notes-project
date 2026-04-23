@@ -22,9 +22,7 @@ const model = {
     const notes = this.getFavoriteNotes();
     view.renderNotes(notes);
     view.renderCount(this.getCountNotes());
-    view.renderFilterBox(); 
-
-    
+    view.renderFilterBox();
   },
 
   createNote(title, content, color) {
@@ -64,13 +62,9 @@ const model = {
   getCountNotes() {
     return this.getFavoriteNotes().length;
   },
-//   toggleFilter(value) {
-//   this.isShowOnlyFavorite = value;
-//   this.render();
-// }
-hasFavoriteNotes() {
-  return this.notes.some(n => n.isFavorite);
-}
+  hasFavoriteNotes() {
+    return this.notes.some((n) => n.isFavorite);
+  },
 };
 
 const view = {
@@ -112,25 +106,24 @@ const view = {
   renderCount(count) {
     const countEl = document.querySelector("#count");
     countEl.innerHTML = `Всего заметок: <span class="count-number">${count}</span>`;
-    // countEl.textContent = `Всего заметок: ${count}`;
   },
   renderFilterBox() {
-  const box = document.querySelector(".filter-box");
-  box.style.display = model.notes.length ? "flex" : "none";
-},
+    const box = document.querySelector(".filter-box");
+    box.style.display = model.notes.length ? "flex" : "none";
+  },
   renderNotes(notes) {
     const list = this.list;
 
     list.innerHTML = "";
     if (notes.length === 0) {
-    list.innerHTML = `
+      list.innerHTML = `
       <li class="empty-state">
        У вас нет еще ни одной заметки <br>
-Заполните поля выше и создайте свою первую заметку!
+       Заполните поля выше и создайте свою первую заметку!
       </li>
     `;
-    return;
-  }
+      return;
+    }
 
     notes.forEach((note) => {
       list.innerHTML += `
@@ -152,48 +145,25 @@ const view = {
     `;
     });
   },
-  // showMessage(message, error = false) {
-  //   const box = this.box;
-  //   box.innerHTML = "";
-
-  //   const messageElement = document.createElement("span");
-
-  //   box.classList.remove("message-error", "message-done");
-
-  //   if (error) {
-  //     messageElement.classList.add("message-error");
-  //   } else {
-  //     messageElement.classList.add("message-done");
-  //   }
-
-  //   messageElement.textContent = message;
-  //   box.append(messageElement);
-
-  //   setTimeout(() => {
-  //     messageElement.remove();
-  //   }, 1500);
-  // },
   showMessage(message, error = false) {
-  const box = this.box;
-  box.innerHTML = "";
+    const box = this.box;
+    box.innerHTML = "";
 
-  const messageElement = document.createElement("div");
+    const messageElement = document.createElement("div");
 
-  messageElement.classList.add(
-    error ? "message-error" : "message-done"
-  );
+    messageElement.classList.add(error ? "message-error" : "message-done");
 
-  messageElement.innerHTML = `
+    messageElement.innerHTML = `
     <img src="./images/icon/${error ? "warning.svg" : "done.svg"}" class="message-icon">
     <span>${message}</span>
   `;
 
-  box.append(messageElement);
+    box.append(messageElement);
 
-  setTimeout(() => {
-    messageElement.remove();
-  }, 1500);
-}
+    setTimeout(() => {
+      messageElement.remove();
+    }, 1500);
+  },
 };
 const controller = {
   createNote(title, content, color) {
@@ -206,12 +176,17 @@ const controller = {
       view.showMessage("Максимальная длина заголовка - 50 символов", true);
       return;
     }
+    if (!color) {
+      view.showMessage("Выберите цвет заметки", true);
+      return;
+    }
 
     model.createNote(title, content, color);
     view.showMessage("Заметка добавлена!");
   },
   deleteNote(id) {
     model.deleteNote(id);
+    view.showMessage("Заметка удалена");
   },
   toggleFavorite(id) {
     model.toggleFavorite(id);
@@ -220,7 +195,6 @@ const controller = {
   toggleFilter(value) {
     model.toggleShowOnlyFavorite(value);
   },
-  
 };
 
 function init() {
