@@ -19,8 +19,7 @@ const model = {
   notes: [],
   isShowOnlyFavorite: false,
   render() {
-    const notes = this.getFavoriteNotes();
-    view.renderNotes(notes);
+    view.renderNotes(this.getFavoriteNotes());
     view.renderCount(this.getCountNotes());
     view.renderFilterBox();
   },
@@ -71,11 +70,10 @@ const view = {
   init() {
     this.list = document.querySelector(".notes-list");
     this.box = document.querySelector(".message-box");
+    this.countEl = document.querySelector("#count");
     model.render();
 
-    const count = document.querySelector("#count");
     const form = document.querySelector(".note-form");
-    const list = document.querySelector(".notes-list");
     const isFavorite = document.querySelector("#checked");
     form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -83,11 +81,13 @@ const view = {
       const title = form.elements.title.value;
       const content = form.elements.content.value;
       const color = form.elements.color.value;
+      const isCreated = controller.createNote(title, content, color);
 
-      controller.createNote(title, content, color);
-      form.reset();
+      if (isCreated) {
+        form.reset();
+      }
     });
-    list.addEventListener("click", (e) => {
+    this.list.addEventListener("click", (e) => {
       if (e.target.closest(".btn-delete")) {
         const id = e.target.closest(".btn-delete").id;
         controller.deleteNote(id);
@@ -104,13 +104,16 @@ const view = {
     });
   },
   renderCount(count) {
-    const countEl = document.querySelector("#count");
-    countEl.innerHTML = `Всего заметок: <span class="count-number">${count}</span>`;
+    this.countEl.innerHTML = `Всего заметок: <span class="count-number">${count}</span>`;
   },
   renderFilterBox() {
-    const box = document.querySelector(".filter-box");
-    box.style.display = model.notes.length ? "flex" : "none";
-  },
+  const box = document.querySelector(".filter-box");
+  const checkbox = document.querySelector("#checked");
+  box.style.display = model.notes.length ? "flex" : "none";
+  checkbox.checked = model.isShowOnlyFavorite;
+},
+
+
   renderNotes(notes) {
     const list = this.list;
 
@@ -169,20 +172,22 @@ const controller = {
   createNote(title, content, color) {
     if (title.length === 0) {
       view.showMessage("Введите заголовок", true);
-      return;
+      return false;
     }
 
     if (title.length > 50) {
       view.showMessage("Максимальная длина заголовка - 50 символов", true);
-      return;
+      return false;
     }
     if (!color) {
       view.showMessage("Выберите цвет заметки", true);
-      return;
+      return false;
     }
 
     model.createNote(title, content, color);
     view.showMessage("Заметка добавлена!");
+
+    return true;
   },
   deleteNote(id) {
     model.deleteNote(id);
