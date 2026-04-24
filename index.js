@@ -1,12 +1,4 @@
-// const MOCK_NOTES = [
-//   {
-//     id: crypto.randomUUID(),
-//     title: "Работа с формами",
-//     content: "контент",
-//     color: "green",
-//     isFavorite: false,
-//   },
-// ];
+
 const colors = {
   green: "#C2F37D",
   red: "#F37D7D",
